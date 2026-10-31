@@ -8,6 +8,7 @@
 */
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -73,19 +74,32 @@ void calculateTotals(int marks[][NUM_TESTS], int totals[], int rows) {
     }
 }
 
-//Displaying records using array pointer notation
+
 void displayStudents(string names[], int marks[][NUM_TESTS], int totals[], int rows) {
-    cout << "Name\t\tTest 1\tTest 2\tTest 3\tTest 4\tTotal" << endl;
-    cout << "-----------------------------------------------------------" << endl;
+    // Print header with fixed widths
+    cout << left << setw(12) << "Name" 
+         << setw(10) << "Test 1" 
+         << setw(10) << "Test 2" 
+         << setw(10) << "Test 3" 
+         << setw(10) << "Test 4" 
+         << setw(8) << "Total" << endl;
+    cout << string(62, '-') << endl;
+
     for (int i = 0; i < rows; i++) {
-        cout << names[i] << "\t\t";
+        // Print name left-aligned in a 12-character column
+        cout << left << setw(12) << names[i];
+        
+        // Print marks using pointer notation, right-aligned in 10-character columns
         for (int j = 0; j < NUM_TESTS; j++) {
-            // Using pointer notation
-            cout << *(*(marks + i) + j) << "\t";
+            cout << right << setw(8) << *(*(marks + i) + j) << "  ";
         }
-        cout << totals[i] << endl;
+        
+        // Print total right-aligned
+        cout << right << setw(8) << totals[i] << endl;
     }
+    
 }
+
 
 // Ranking students using Bubble Sort
 void rankStudents(string names[], int marks[][NUM_TESTS], int totals[], int rows) {
